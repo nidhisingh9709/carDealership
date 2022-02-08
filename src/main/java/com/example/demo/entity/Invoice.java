@@ -15,13 +15,14 @@ public class Invoice {
 	
 	private String carName;
 	
+	private String salesmanName;
+	
+	private String customerName;
+	
 	private double price;
 	
-	private double taxRate;
 	
-	private double totalCost;
-	
-	@OneToOne(mappedBy="salesman")
+	@OneToOne(mappedBy="invoice")
 	private Salesman salesman;
 
 	public int getInvoiceId() {
@@ -48,25 +49,25 @@ public class Invoice {
 		this.price = price;
 	}
 
-	public double getTaxRate() {
-		return taxRate;
-	}
-
-	public void setTaxRate(double taxRate) {
-		this.taxRate = taxRate;
-	}
-
-
-	public void setTotalCost(double price, double taxRate) {
-		double total= price+(price*(100+taxRate)/100);
-		this.totalCost=total;
-		
-	}
 	
-	public double getTotalCost() {
-		return totalCost;
-	}
 	
+	
+
+	public String getSalesmanName() {
+		return salesmanName;
+	}
+
+	public void setSalesmanName(String salesmanName) {
+		this.salesmanName = salesmanName;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
 
 	public Salesman getSalesman() {
 		return salesman;

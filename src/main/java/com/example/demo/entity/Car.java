@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,8 +17,7 @@ public class Car {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int carId;
 
-	@NotBlank 
-	private long serialNumber;
+	
 	
 	@NotBlank
 	private String model;
@@ -25,12 +25,24 @@ public class Car {
 	@NotBlank
 	private String color;
 	
-	@OneToOne(mappedBy="car")
-	private Mechanic mechanic;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name = "salesman_id", referencedColumnName = "salesmanId")
 	private Salesman salesman;
+	
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE })
+	@JoinColumn(name = "customer_id", referencedColumnName = "customerId")
+	private Customer customer;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "mechanic_id", referencedColumnName = "mechanicId")
+	private Mechanic mechanic;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "invoice_id", referencedColumnName = "invoiceId")
+	private Invoice invoice;
 
 	public Car() {
 
@@ -67,14 +79,22 @@ public class Car {
 		this.color = color;
 	}
 	
-
-	public long getSerialNumber() {
-		return serialNumber;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setSerialNumber(long serialNumber) {
-		this.serialNumber = serialNumber;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
+
+	public Invoice getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
+	}
+
 
 	public Salesman getSalesman() {
 		return salesman;

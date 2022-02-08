@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
@@ -29,9 +28,6 @@ public class Customer {
 	@Pattern(regexp = "^[a-zA-Z0-9 -&]*")
 	private String address;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "invoice_id", referencedColumnName = "InvoiceId")
-	private Invoice invoice;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "salesman_id", referencedColumnName = "salesmanId")
